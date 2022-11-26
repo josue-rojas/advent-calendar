@@ -65,7 +65,7 @@
 }
 
 .closeButton {
-  background-color: red;
+  background-color: rgb(255, 84, 79);
   border-radius: 10px;
   color: white;
   cursor: pointer;
