@@ -22,6 +22,62 @@
   font-weight: bold;
 }
 
+/* .textWrapper {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  max-width: 350px;
+  padding: 20px;
+  position: relative;
+} */
+
+.view {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 1;
+  position: absolute;
+  transition: 300ms;
+}
+
+.dateView {
+  cursor: pointer;
+  opacity: 1;
+  transition: 500ms;
+}
+
+.hide {
+  transition-delay: 250ms;
+  opacity: 0;
+  z-index: -10;
+}
+
+.noteView {
+  transition: 500ms;
+  opacity: 0;
+  padding: 10px;
+}
+
+.noteView.show {
+  transition-delay: 250ms;
+  opacity: 1;
+}
+
+.closeButton {
+  background-color: red;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+}
+
+.closeButton.disable {
+  display: none;
+}
+
 
 /* snow from https://codepen.io/codeconvey/pen/xRzQay; i'm too lazy to figure it out */
 .snowflake {

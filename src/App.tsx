@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import './App.css';
+import { presents } from './presents';
 
 
 const DEFAULT_DATE = new Date();
@@ -29,44 +31,56 @@ function getMonth(date: Date): string {
   return MONTHS[date.getMonth()];
 }
 
-interface Present {
+export interface Present {
   title: string;
-  note?: string;
+  note: string;
+  emoji?: string;
 }
 
 // max 10
-function SnowFlakes({ num }: { num: number; }) {
+function SnowFlakes({ num, snowflake = '❅'}: { num: number; snowflake?: string }) {
   const arr = new Array(num).fill(0);
 
   return <div className='snowflakes'>
     {arr.map((_, index) => {
       return (
         <div className="snowflake" key={`snow-${index}`}>
-          ❅
+          {snowflake}
         </div>
       )
     })}
   </div>
 }
 
-function getPresent(numberDate: string, month: string): Present {
-  return {
-    'NOVEMBER15': { title: 'Cheese', note: 'some note that I need to write later but not now'}
-  }[`${month}${numberDate}`] || { title: 'No Present Today'};
+function getPresent(numberDate: string, month: string, year: number): Present {
+  return presents[`${month}${numberDate}${year.toString()}`] || { title: 'No Present Today', note: 'Hacks: To view other dates add #12.01.2022 or any other date to the url.'}
 }
 
 function App() {
+  const [isNoteView, setIsNoteView] = useState(true);
   const dateDisplay = getDateFromHash(window.location.hash);
   const numberDate = getNumberText(dateDisplay);
   const month = getMonth(dateDisplay)
-  const present = getPresent(numberDate, month);
+  const year = dateDisplay.getFullYear();
+  const { title, note, emoji } = getPresent(numberDate, month, year);
+
 
   return (
     <div className="App">
-      {<SnowFlakes num={10}></SnowFlakes>}
-      <div className='month'>{month}</div>
-      <div className="number">{numberDate}</div>
-      <div>{present.title}</div>
+      {<SnowFlakes num={10} snowflake={emoji}></SnowFlakes>}
+        <div className={`dateView view ${isNoteView ? 'hide' : 'show'}`}  onClick={() => setIsNoteView(!isNoteView)}>
+          <div className='month'>{month}</div>
+          <div className="number">{numberDate}</div>
+          <div>{title}</div>
+        </div>
+        <div className={`noteView ${isNoteView ? 'show' : 'hide'}`}>
+          <div>
+            {note}
+          </div>
+          <div className={`closeButton ${isNoteView ? '' : 'disable'}`} onClick={() => setIsNoteView(!isNoteView)}>Close</div>
+        </div>
+      <div className='textWrapper'>
+      </div>
     </div>
   );
 }
