@@ -57,7 +57,7 @@ function getPresent(numberDate: string, month: string, year: number): Present {
 }
 
 function App() {
-  const [isNoteView, setIsNoteView] = useState(true);
+  const [isNoteView, setIsNoteView] = useState(false);
   const dateDisplay = getDateFromHash(window.location.hash);
   const numberDate = getNumberText(dateDisplay);
   const month = getMonth(dateDisplay)
