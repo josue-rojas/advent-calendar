@@ -54,9 +54,10 @@
 }
 
 .noteView {
-  transition: 500ms;
+  max-width: 350px;
   opacity: 0;
   padding: 10px;
+  transition: 500ms;
 }
 
 .noteView.show {
@@ -67,6 +68,7 @@
 .closeButton {
   background-color: rgb(255, 84, 79);
   border-radius: 10px;
+  box-shadow: 5px 5px rgb(2, 17, 41);
   color: white;
   cursor: pointer;
   display: inline-block;
