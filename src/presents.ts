@@ -88,51 +88,55 @@ export const presents: {[key: string]: Present} = {
     note: 'Got you another charm. I realized you write “PAL” so maybe next year I’ll get A and L. Wanted to dedicate some days for your mom. Sorry this one isn’t long I figure I would be writing what I wrote yesterday. I’ll always be by your side even if I have no words, I am here for anything you might need.',
   },
   'DECEMBER202022': {
-    title: 'TODo',
-    note: 'TODO',
+    title: '🤓🤓🤓',
+    note: 'Nerds! is the gift! if you haven’t figured it out by the title. Again in my head I get these snacks with the thought in mind that you might want to share (only if you want).',
   },
   'DECEMBER212022': {
-    title: 'TODo',
-    note: 'TODO',
+    title: 'Little Prince.',
+    note: 'This is one of my favorite books. With this gift I figure I can get you something that inspired me. There’s many lessons here. One of my favorites is that grown ups are really weird. To me it means more that grown ups are weird but as we grow up we should still maintain that curiosity we had as kids. There’s so much in the world to learn from and to stay curious about. Glad I can share my favorite thoughts with.',
   },
   'DECEMBER222022': {
-    title: 'TODo',
-    note: 'TODO',
+    title: 'Pro Tip!',
+    note: 'Not sure what this is used for but gotta keep getting stuff from your list. Like I said before, its a gift of what you want and what I want to give you. ',
   },
   'DECEMBER232022': {
     title: 'TODo',
     note: 'TODO',
   },
   'DECEMBER242022': {
-    title: 'TODo',
-    note: 'TODO',
+    title: 'I like turtles!',
+    note: 'I love the stories you tell me about your animals. One of them I always remember is the turtle that you let go in Central Park. Maybe we’ll find taffy again or his children. Next time we go to beacon I’ll get you more animals. Cause it’s fun gifts for you. Bet you couldn’t guess this animal. ',
   },
   'DECEMBER252022': {
-    title: 'TODo',
-    note: 'TODO',
+    title: 'MERRY CHRISTMAS! 🎅 🎄',
+    note: 'Second Christmas together! I’m still sorry I got you sick on our last Christmas although I doubt it’s my fault still. For this gift I wanted to give you nail polish. I remember I wrote that it was one of the things that I thought was cool, you painting your nails. Your hands are so beautiful. Just missing one thing. But for now I give you nail polish. The nail polish are dark colors cause it’s to say I support your emo vibes. Always on your side babe whatever vibes you wanna go with. ',
+    emoji: '❄️'
   },
   'DECEMBER262022': {
-    title: 'TODo',
-    note: 'TODO',
+    title: 'Chocolate',
+    note: 'Today is chocolate day. There’s a song that goes like “Sing that song it’s all for you”. I thought about this chocolate. This big (hollow) chocolate is all for you. Unless you want to share. lol.',
   },
   'DECEMBER272022': {
-    title: 'TODo',
-    note: 'TODO',
+    title: 'Flowers',
+    note: 'These are your biweekly flowers 🌸. Until we have our garden or until I am extremely rich to get you flowers everyday 😛.',
+    emoji: '🌸'
   },
   'DECEMBER282022': {
     title: 'TODo',
     note: 'TODO',
   },
   'DECEMBER292022': {
-    title: 'TODo',
-    note: 'TODO',
+    title: 'Pop! Pop!',
+    note: 'Popcorn! I never knew these existed before you showed them to me. It’s a funny name. ',
+    emoji: '🍿'
   },
   'DECEMBER302022': {
-    title: 'TODo',
-    note: 'TODO',
+    title: 'For your travels.',
+    note: 'I figure I get this just in case. Get it. lol. It’s a pun. I will miss you very much. Even if it’s 10 days. I remember when I was in New Orleans alone I missed you so much. I guess it will be different cause I’m more comfortable calling you. And I will get to see your cute/beautiful face through FaceTime. I do hope you have fun. I’ll count the days you come back. So I can hear about all your days. You can tell me all about Mexico so in my head I can plan out when we both can go together.',
   },
   'DECEMBER312022': {
-    title: 'TODo',
-    note: 'TODO',
+    title: 'New Year’s eve!!',
+    note: 'Bad Bunny said “Pa\' que ante\' que se acabe el año tú me de\' un beso Y empezar el 2023 bien cabrón”. Thank you for being part of life! I appreciate you everyday. For all the things I learn from you and all the fun we have. Even for all the times we get mad at each other. The one thing constant is that I love you very much. Here is to growing old with you and going on many more adventures with you. Those adventures include being lazy cause we gotta rest some times. haha. But all is to say you are the perfect person I want to spend all years with. To my love! The one I want to spend forever and beyond with. The one I cherish and love always! Todays gift: a giant kisses. Kinda cheesy but I like being cheesy with you.',
+    emoji: '🎊'
   }
 }
