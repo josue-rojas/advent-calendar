@@ -93,15 +93,15 @@ export const presents: {[key: string]: Present} = {
   },
   'DECEMBER212022': {
     title: 'Little Prince.',
-    note: 'This is one of my favorite books. With this gift I figure I can get you something that inspired me. There’s many lessons here. One of my favorites is that grown ups are really weird. To me it means more that grown ups are weird but as we grow up we should still maintain that curiosity we had as kids. There’s so much in the world to learn from and to stay curious about. Glad I can share my favorite thoughts with.',
+    note: 'This is one of my favorite books. With this gift I figure I can get you something that inspired me. There’s many lessons here. One of my favorites is that grown ups are really weird. To me it means more than grown ups are weird (cause they are) but as we grow up we should still maintain that curiosity we had as kids. There’s so much in the world to learn from and to stay curious about. It also reminds me of how glad I am that I can share my favorite thoughts with.',
   },
   'DECEMBER222022': {
     title: 'Pro Tip!',
     note: 'Not sure what this is used for but gotta keep getting stuff from your list. Like I said before, its a gift of what you want and what I want to give you. ',
   },
   'DECEMBER232022': {
-    title: 'TODo',
-    note: 'TODO',
+    title: "Coke!",
+    note: "I had to go back to get this after I showed you. It was a cool thing and then you told me it would be cool for a lazy day. We can drink some coke and watch a movie oh and eat popcorn. So this present stays at my house. You can take the popcorn though. lol. Cause I dont have a microwave. So I guess the present is a lazy day and a movie. I can make you popcorn here though. "
   },
   'DECEMBER242022': {
     title: 'I like turtles!',
