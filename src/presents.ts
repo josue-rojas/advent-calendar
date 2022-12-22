@@ -93,7 +93,7 @@ export const presents: {[key: string]: Present} = {
   },
   'DECEMBER212022': {
     title: 'Little Prince.',
-    note: 'This is one of my favorite books. With this gift I figure I can get you something that inspired me. There’s many lessons here. One of my favorites is that grown ups are really weird. To me it means more than grown ups are weird (cause they are) but as we grow up we should still maintain that curiosity we had as kids. There’s so much in the world to learn from and to stay curious about. It also reminds me of how glad I am that I can share my favorite thoughts with.',
+    note: 'This is one of my favorite books. With this gift I figure I can get you something that inspired me. There’s many lessons here. One of my favorites is that grown ups are really weird. To me it means more than grown ups are weird (cause they are) but as we grow up we should still maintain that curiosity we had as kids. There’s so much in the world to learn from and to stay curious about. It also reminds me of how glad I am that I can share my favorite thoughts with you.',
   },
   'DECEMBER222022': {
     title: 'Pro Tip!',
