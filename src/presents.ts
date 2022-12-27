@@ -117,13 +117,13 @@ export const presents: {[key: string]: Present} = {
     note: 'Today is chocolate day. There’s a song that goes like “Sing that song it’s all for you”. I thought about this chocolate. This big (hollow) chocolate is all for you. Unless you want to share. lol.',
   },
   'DECEMBER272022': {
+    title: 'Flower',
+    note: 'I owed you this for a long time. Who knows what happen to the missing piece. I’ve been searching for a replacement for a while. Of course you’ve been with me when we do find one so I haven’t gotten a chance to buy it. For some reason it was very hard to find online that will come on time. If you see this it’s cause it came on time. I love giving you flowers in all types of forms and I will continue to do so. To my love, I’ll conquer the world to give you all the flowers. haha. This was the last gift that was missing. It seems appropriate though. Something sentimental and something to reminisce of the wood flower I first gave you. Also reminds me when you first came to my house. How things have change, now we have a place to ourselves. If you cant put the flower back to normal I’ll always be here to do that. ',
+  },
+  'DECEMBER282022': {
     title: 'Flowers',
     note: 'These are your biweekly flowers 🌸. Until we have our garden or until I am extremely rich to get you flowers everyday 😛.',
     emoji: '🌸'
-  },
-  'DECEMBER282022': {
-    title: 'TODo',
-    note: 'TODO',
   },
   'DECEMBER292022': {
     title: 'Pop! Pop!',
