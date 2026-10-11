@@ -211,7 +211,7 @@ function Cake({ days, through, finale, lit, currentKey, onSelect }: CakeProps) {
           const vars = { '--wax': WAX[(day.n - 1) % WAX.length], '--i': day.n } as CSSProperties;
           return (
             <g key={day.key} transform={`translate(${x} ${y}) scale(${scale})`} style={vars}>
-              <ellipse className="hole" cx={0} cy={0} rx={5} ry={2} />
+             { present && <ellipse className="hole" cx={0} cy={0} rx={5} ry={2} />}
               {current && <ellipse className="currentRing" cx={0} cy={0} rx={9} ry={3.4} />}
               {present && (
                 <g className={arriving ? 'arrive' : ''}>

@@ -111,6 +111,31 @@ test('on Dec 2 all 30 candles are on the cake and light themselves, then the not
   expect(container.querySelector('.noteView')).toHaveClass('show');
 });
 
+test('?preview#12.02.2026 plays the whole Dec 2 sequence even though today is earlier', () => {
+  setToday('2026-11-05');
+  visit('/advent-calendar/?preview#12.02.2026');
+  const { container } = render(<App />);
+  expect(screen.queryByText('Not yet')).not.toBeInTheDocument();
+  expect(candleButtons()).toHaveLength(30);
+  expect(container.querySelector('.snowflakes')).toHaveClass('rise');
+
+  expect(container.querySelector('.App')).not.toHaveClass('lit');
+  act(() => { jest.advanceTimersByTime(1000); });
+  expect(container.querySelector('.App')).toHaveClass('lit');
+  act(() => { jest.advanceTimersByTime(4000); });
+  expect(container.querySelector('.noteView')).toHaveClass('show');
+});
+
+test('?preview on an ordinary future day behaves like that day: its gift, its cake, no lighting', () => {
+  setToday('2026-11-05');
+  visit('/advent-calendar/?preview#11.17.2026');
+  const { container } = render(<App />);
+  expect(screen.getByText('Handmade for you')).toBeInTheDocument();
+  expect(candleButtons()).toHaveLength(16);
+  act(() => { jest.advanceTimersByTime(10000); });
+  expect(container.querySelector('.App')).not.toHaveClass('lit');
+});
+
 test('?finale previews the auto-lighting before Dec 2', () => {
   setToday('2026-11-09');
   visit('/advent-calendar/?finale');

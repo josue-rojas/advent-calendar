@@ -67,19 +67,25 @@ function App() {
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
-  const now = new Date();
   const params = new URLSearchParams(window.location.search);
   const preview = params.has('preview');
-  const finaleMode = startOfDay(now) >= FINALE_DATE || params.has('finale');
 
   const parsed = parseHash(hash);
-  const date = parsed.kind === 'date' ? parsed.date : startOfDay(now);
+  // With ?preview the page behaves as if today were the date in the link: no real-date check,
+  // so e.g. /advent-calendar/?preview#12.02.2026 plays the whole Dec 2 sequence.
+  const today = preview && parsed.kind === 'date' ? parsed.date : new Date();
+  const finaleMode = startOfDay(today) >= FINALE_DATE || params.has('finale');
+
+  const date = parsed.kind === 'date' ? parsed.date : startOfDay(today);
   const key = dateKey(date);
   const isBirthday = isSameDay(date, FINALE_DATE);
 
-  // Dec 2 (or ?finale): light the candles automatically.
+  // Dec 2 (or ?finale): light the candles automatically. Back to unlit if we leave that day (preview).
   useEffect(() => {
-    if (!finaleMode) return;
+    if (!finaleMode) {
+      setLit(false);
+      return;
+    }
     const t = window.setTimeout(() => setLit(true), LIGHT_DELAY_MS);
     return () => window.clearTimeout(t);
   }, [finaleMode]);
@@ -91,11 +97,10 @@ function App() {
     return () => window.clearTimeout(t);
   }, [lit, isBirthday]);
 
-  // Dates in the future stay locked unless ?preview is set.
-  const locked = !preview && startOfDay(date) > startOfDay(now);
+  // Dates after "today" stay locked. (In preview, today is the date in the link, so nothing is locked.)
+  const locked = startOfDay(date) > startOfDay(today);
   // The cake is driven by the calendar, not by anything stored: every candle up to today is on it.
-  // With ?preview, it shows candles up to the date in the link so you can check future days.
-  const through = preview && parsed.kind === 'date' ? date : now;
+  const through = today;
 
   const numberDate = pad2(date.getDate());
   const month = MONTHS[date.getMonth()];
@@ -104,7 +109,7 @@ function App() {
   if (locked) {
     entry = { title: 'Not yet', note: `This one opens on ${formatLong(date)}.` };
   } else {
-    entry = presents[presentKey(date)] || fallbackPresent(now);
+    entry = presents[presentKey(date)] || fallbackPresent(today);
   }
   const { title, note, emoji, rise } = entry;
 
