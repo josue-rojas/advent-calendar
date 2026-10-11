@@ -1,0 +1,107 @@
+.cake {
+  box-sizing: border-box;
+  margin-top: 8px;
+  padding: 0 12px;
+  width: min(100%, 480px);
+}
+
+.cake svg {
+  display: block;
+  height: auto;
+  overflow: visible;
+  width: 100%;
+}
+
+.cakeStatus {
+  font-size: 0.95rem;
+  margin: 8px auto 0;
+  max-width: 34ch;
+  opacity: 0.8;
+}
+
+.plate { fill: rgba(2, 17, 41, 0.35); }
+.plateRim { fill: rgb(2, 17, 41); stroke: #c9a66b; stroke-width: 2; }
+.sponge { fill: #f7b6c8; }
+.dot { opacity: 0.9; }
+.frosting { fill: #fff4ec; }
+.frostingEdge { fill: none; stroke: rgba(2, 17, 41, 0.08); stroke-width: 1.5; }
+
+.hole { fill: rgba(2, 17, 41, 0.28); }
+.currentRing { fill: none; stroke: rgb(255, 84, 79); stroke-width: 1.6; }
+
+.wax { fill: var(--wax); }
+.shine { fill: rgba(255, 255, 255, 0.3); }
+.wick { stroke: #3a2a30; stroke-linecap: round; stroke-width: 1.4; }
+
+.candleHit { cursor: pointer; outline: none; }
+.candleHit rect { fill: transparent; }
+.candleHit:focus-visible rect { stroke: rgb(255, 84, 79); stroke-width: 1.5; }
+
+.flame {
+  opacity: 0;
+  transform: scale(0.2);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.2, 1.4, 0.4, 1);
+  transition-delay: calc(var(--i) * 90ms);
+}
+
+.flameOuter { fill: #ffc86b; }
+.flameInner { fill: #fff2c9; }
+
+.cake.lit .flame {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cake.lit .flameOuter {
+  filter: drop-shadow(0 0 4px rgba(255, 200, 107, 0.95));
+}
+
+.cake.lit .flameWrap {
+  animation: flicker 1.6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -130ms);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+@keyframes flicker {
+  0%, 100% { transform: scaleY(1) rotate(0deg); }
+  30% { transform: scaleY(1.07) rotate(1.8deg); }
+  60% { transform: scaleY(0.95) rotate(-1.6deg); }
+}
+
+.arrive {
+  animation: arrive 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
+}
+
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(-46px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lightButton {
+  appearance: none;
+  background-color: #ffc86b;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 5px 5px rgb(2, 17, 41);
+  color: rgb(2, 17, 41);
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 12px 24px;
+}
+
+.lightButton:focus-visible {
+  outline: 2px solid rgb(255, 84, 79);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrive { animation: none; }
+  .cake.lit .flameWrap { animation: none; }
+  .flame { transform: scale(1); transition: opacity 0.2s linear; transition-delay: 0ms; }
+}

@@ -7,6 +7,27 @@
   min-height: 100vh;
   text-align: center;
   background-color: rgb(223, 206, 190);
+  box-sizing: border-box;
+  padding: 24px 0 40px;
+  transition: background-color 1.5s ease, color 1.5s ease;
+}
+
+/* Candles lit: dim the room */
+.App.lit {
+  background-color: rgb(2, 17, 41);
+  color: #fff4ec;
+}
+
+/* Date and note share one cell so the cake sits below whichever is showing */
+.stage {
+  align-items: center;
+  display: grid;
+  justify-items: center;
+  width: 100%;
+}
+
+.stage > * {
+  grid-area: 1 / 1;
 }
 
 .number {
@@ -37,7 +58,6 @@
   flex-direction: column;
   justify-content: center;
   opacity: 1;
-  position: absolute;
   transition: 300ms;
 }
 
@@ -50,14 +70,15 @@
 .hide {
   transition-delay: 250ms;
   opacity: 0;
-  z-index: -10;
+  pointer-events: none;
 }
 
 .noteView {
-  max-width: 350px;
+  box-sizing: border-box;
   opacity: 0;
   padding: 10px;
   transition: 500ms;
+  width: min(350px, 100%);
 }
 
 .noteView.show {
@@ -77,12 +98,20 @@
 }
 
 .closeButton.disable {
-  display: none;
+  visibility: hidden;
+}
+
+
+.candleHint {
+  font-size: 0.9rem;
+  margin-top: 12px;
+  opacity: 0.7;
 }
 
 
 /* snow from https://codepen.io/codeconvey/pen/xRzQay; i'm too lazy to figure it out */
 .snowflake {
+  pointer-events: none;
   color: #fff;
   font-size: 1em;
   font-family: Arial;
@@ -90,3 +119,12 @@
 }
 
 @-webkit-keyframes snowflakes-fall{0%{top:-10%}100%{top:100%}}@-webkit-keyframes snowflakes-shake{0%{-webkit-transform:translateX(0px);transform:translateX(0px)}50%{-webkit-transform:translateX(80px);transform:translateX(80px)}100%{-webkit-transform:translateX(0px);transform:translateX(0px)}}@keyframes snowflakes-fall{0%{top:-10%}100%{top:100%}}@keyframes snowflakes-shake{0%{transform:translateX(0px)}50%{transform:translateX(80px)}100%{transform:translateX(0px)}}.snowflake{position:fixed;top:-10%;z-index:9999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default;-webkit-animation-name:snowflakes-fall,snowflakes-shake;-webkit-animation-duration:10s,3s;-webkit-animation-timing-function:linear,ease-in-out;-webkit-animation-iteration-count:infinite,infinite;-webkit-animation-play-state:running,running;animation-name:snowflakes-fall,snowflakes-shake;animation-duration:10s,3s;animation-timing-function:linear,ease-in-out;animation-iteration-count:infinite,infinite;animation-play-state:running,running}.snowflake:nth-of-type(0){left:1%;-webkit-animation-delay:0s,0s;animation-delay:0s,0s}.snowflake:nth-of-type(1){left:10%;-webkit-animation-delay:1s,1s;animation-delay:1s,1s}.snowflake:nth-of-type(2){left:20%;-webkit-animation-delay:6s,.5s;animation-delay:6s,.5s}.snowflake:nth-of-type(3){left:30%;-webkit-animation-delay:4s,2s;animation-delay:4s,2s}.snowflake:nth-of-type(4){left:40%;-webkit-animation-delay:2s,2s;animation-delay:2s,2s}.snowflake:nth-of-type(5){left:50%;-webkit-animation-delay:8s,3s;animation-delay:8s,3s}.snowflake:nth-of-type(6){left:60%;-webkit-animation-delay:6s,2s;animation-delay:6s,2s}.snowflake:nth-of-type(7){left:70%;-webkit-animation-delay:2.5s,1s;animation-delay:2.5s,1s}.snowflake:nth-of-type(8){left:80%;-webkit-animation-delay:1s,0s;animation-delay:1s,0s}.snowflake:nth-of-type(9){left:90%;-webkit-animation-delay:3s,1.5s;animation-delay:3s,1.5s}
+
+/* Balloons (Present.rise): same sway as the snow, but they float up from the bottom */
+@keyframes snowflakes-rise{0%{top:100%}100%{top:-12%}}
+.snowflakes.rise .snowflake {
+  top: 100%;
+  font-size: 1.8em;
+  animation-name: snowflakes-rise, snowflakes-shake;
+  animation-duration: 12s, 4s;
+}

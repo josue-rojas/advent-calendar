@@ -1,6 +1,7 @@
-import { Present } from './App'; 
+import { Present } from './types';
+import { presents2026 } from './presents2026';
 
-export const presents: {[key: string]: Present} = {
+const presents2022: {[key: string]: Present} = {
   'DECEMBER012022': {
     title: 'Birthday Month Start!',
     note: `Wanted to give you something special for the 1st birthday we celebrate together. An advent calendar seemed appropriate. A pack of M&Ms came second. Ha! 😛. Only cause it reminds me of our second date. I took mental notes of your prefer snacks on our first date and from then on I wanted to know more about you. The calendar is to make it extra special and to shower you with small gifts. Hopefully in the future I can afford to give you an advent calendar with just jewelry. For now it's one full of mixed things. Happy birthday eve. I hope you enjoy the tiny presents I got you.P.S try not to cheat by going to this site before I give you your present unless you are really curious. `
@@ -140,3 +141,5 @@ export const presents: {[key: string]: Present} = {
     emoji: '🎊'
   }
 }
+
+export const presents: {[key: string]: Present} = { ...presents2022, ...presents2026 };
