@@ -10,6 +10,7 @@ import {
   dateKey,
   formatLong,
   hashFor,
+  isSameDay,
   parseHash,
   presentKey,
   runwayDays,
@@ -21,6 +22,11 @@ import {
 export type { Present } from './types';
 
 type View = 'date' | 'note';
+
+// On Dec 2 the candles light themselves. Wait a beat so the unlit cake is seen first, then let the
+// staggered flame animation play (30 candles x 90ms) before opening the birthday note.
+const LIGHT_DELAY_MS = 800;
+const NOTE_AFTER_LIT_MS = 3600;
 
 // max 10
 function SnowFlakes({ num, snowflake = '❅', rise = false }: { num: number; snowflake?: string; rise?: boolean }) {
@@ -61,13 +67,6 @@ function App() {
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
-  // After the candles light up, show the day's note.
-  useEffect(() => {
-    if (!lit) return;
-    const t = window.setTimeout(() => setView('note'), 1800);
-    return () => window.clearTimeout(t);
-  }, [lit]);
-
   const now = new Date();
   const params = new URLSearchParams(window.location.search);
   const preview = params.has('preview');
@@ -76,6 +75,21 @@ function App() {
   const parsed = parseHash(hash);
   const date = parsed.kind === 'date' ? parsed.date : startOfDay(now);
   const key = dateKey(date);
+  const isBirthday = isSameDay(date, FINALE_DATE);
+
+  // Dec 2 (or ?finale): light the candles automatically.
+  useEffect(() => {
+    if (!finaleMode) return;
+    const t = window.setTimeout(() => setLit(true), LIGHT_DELAY_MS);
+    return () => window.clearTimeout(t);
+  }, [finaleMode]);
+
+  // Once they're lit, open the birthday note (only when the birthday itself is on screen).
+  useEffect(() => {
+    if (!lit || !isBirthday) return;
+    const t = window.setTimeout(() => setView('note'), NOTE_AFTER_LIT_MS);
+    return () => window.clearTimeout(t);
+  }, [lit, isBirthday]);
 
   // Dates in the future stay locked unless ?preview is set.
   const locked = !preview && startOfDay(date) > startOfDay(now);
@@ -130,11 +144,6 @@ function App() {
         currentKey={key}
         onSelect={openDay}
       />
-      {true && !lit && (
-        <button type="button" className="lightButton" onClick={() => setLit(true)}>
-          Light the candles
-        </button>
-      )}
     </div>
   );
 }

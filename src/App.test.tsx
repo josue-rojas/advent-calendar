@@ -92,17 +92,46 @@ test('the birthday (Dec 2) floats balloons up; other days still drop their emoji
   expect(day8.container.querySelector('.snowflakes')).not.toHaveClass('rise');
 });
 
-test('on Dec 2 all 30 candles are on the cake; lighting them dims the room and shows the note', () => {
+test('on Dec 2 all 30 candles are on the cake and light themselves, then the note opens', () => {
   setToday('2026-12-02');
   visit('/advent-calendar/');
   const { container } = render(<App />);
   expect(screen.getByText('All thirty candles are here.')).toBeInTheDocument();
   expect(candleButtons()).toHaveLength(30);
-  expect(container.querySelector('.App')).not.toHaveClass('lit');
+  expect(screen.queryByText('Light the candles')).not.toBeInTheDocument();
 
-  fireEvent.click(screen.getByText('Light the candles'));
+  // unlit at first, so the animation has something to animate from
+  expect(container.querySelector('.App')).not.toHaveClass('lit');
+  act(() => { jest.advanceTimersByTime(1000); });
   expect(container.querySelector('.App')).toHaveClass('lit');
   expect(screen.getByText('Make a wish.')).toBeInTheDocument();
-  act(() => { jest.advanceTimersByTime(2000); });
+  expect(container.querySelector('.noteView')).toHaveClass('hide');
+
+  act(() => { jest.advanceTimersByTime(4000); });
   expect(container.querySelector('.noteView')).toHaveClass('show');
+});
+
+test('?finale previews the auto-lighting before Dec 2', () => {
+  setToday('2026-11-09');
+  visit('/advent-calendar/?finale');
+  const { container } = render(<App />);
+  act(() => { jest.advanceTimersByTime(1000); });
+  expect(container.querySelector('.App')).toHaveClass('lit');
+});
+
+test('on an ordinary day the candles never light', () => {
+  setToday('2026-11-09');
+  visit('/advent-calendar/#11.09.2026');
+  const { container } = render(<App />);
+  act(() => { jest.advanceTimersByTime(10000); });
+  expect(container.querySelector('.App')).not.toHaveClass('lit');
+});
+
+test('on Dec 2, an older day stays on the date view and does not auto-open its note', () => {
+  setToday('2026-12-02');
+  visit('/advent-calendar/#11.05.2026');
+  const { container } = render(<App />);
+  act(() => { jest.advanceTimersByTime(10000); });
+  expect(container.querySelector('.App')).toHaveClass('lit');
+  expect(container.querySelector('.noteView')).toHaveClass('hide');
 });
