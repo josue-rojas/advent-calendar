@@ -19,12 +19,12 @@
   opacity: 0.8;
 }
 
-.plate { fill: rgba(2, 17, 41, 0.35); }
-.plateRim { fill: rgb(2, 17, 41); stroke: #c9a66b; stroke-width: 2; }
-.sponge { fill: #f7b6c8; }
-.dot { opacity: 0.9; }
-.frosting { fill: #fff4ec; }
-.frostingEdge { fill: none; stroke: rgba(2, 17, 41, 0.08); stroke-width: 1.5; }
+.shadow { fill: rgba(60, 40, 10, 0.28); }
+.sponge { fill: #f6dfa8; }
+.frosting { fill: #fffaf0; }
+.frostingEdge { fill: none; stroke: rgba(120, 90, 40, 0.14); stroke-width: 1.2; }
+.crumb { fill: #f5e3b6; stroke: rgba(170, 128, 58, 0.4); stroke-width: 0.9; }
+.crumbShine { fill: rgba(255, 255, 255, 0.55); }
 
 .hole { fill: rgba(2, 17, 41, 0.28); }
 .currentRing { fill: none; stroke: rgb(255, 84, 79); stroke-width: 1.6; }
