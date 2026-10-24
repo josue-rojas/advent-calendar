@@ -78,6 +78,13 @@ test('tapping a candle on the cake opens that day', () => {
   expect(window.location.hash).toBe('#11.02.2026');
 });
 
+test('there are more than ten snowflakes falling at once', () => {
+  setToday('2026-11-09');
+  visit('/advent-calendar/#11.09.2026');
+  const { container } = render(<App />);
+  expect(container.querySelectorAll('.snowflake')).toHaveLength(16);
+});
+
 test('the birthday (Dec 2) floats balloons up; other days still drop their emoji', () => {
   setToday('2026-12-02');
   visit('/advent-calendar/#12.02.2026');

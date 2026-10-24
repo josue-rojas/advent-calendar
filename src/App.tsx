@@ -34,13 +34,24 @@ function SnowFlakes({ num, snowflake = '❅', rise = false }: { num: number; sno
 
   return <div className={`snowflakes ${rise ? 'rise' : ''}`}>
     {arr.map((_, index) => {
+      const left = ((index + 1) / (num + 1)) * 100;
+      const xDelay = `${((index * 1.7) % 9).toFixed(1)}s`;
+      const yDelay = `${((index * 0.7) % 4).toFixed(1)}s`;
+
       return (
-        <div className="snowflake" key={`snow-${index}`}>
+        <div
+          className="snowflake"
+          key={`snow-${index}`}
+          style={{
+            left: `${left}%`,
+            animationDelay: `${xDelay}, ${yDelay}`,
+          }}
+        >
           {snowflake}
         </div>
-      )
+      );
     })}
-  </div>
+  </div>;
 }
 
 function fallbackPresent(now: Date): Present {
@@ -124,7 +135,7 @@ function App() {
 
   return (
     <div className={`App ${lit ? 'lit' : ''}`}>
-      {<SnowFlakes num={10} snowflake={emoji} rise={rise}></SnowFlakes>}
+      {<SnowFlakes num={16} snowflake={emoji} rise={rise}></SnowFlakes>}
       <div className="stage">
         <div className={`dateView view ${isNoteView ? 'hide' : 'show'}`} onClick={toggleNote} aria-hidden={isNoteView}>
           <div className='month'>{month}</div>
