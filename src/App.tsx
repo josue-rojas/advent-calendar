@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import './App.css';
 import { presents } from './presents';
 import { Present } from './types';
@@ -28,31 +28,33 @@ const NOTE_AFTER_LIT_MS = 3600;
 
 function SnowFlakes({ num, snowflake = '❅', rise = false }: { num: number; snowflake?: string; rise?: boolean }) {
   const arr = new Array(num).fill(0);
+  const snowflakeStyles = useMemo(() => {
+    return arr.map((_, index) => {
+      const seed = index * 13.7 + 3.1 + (snowflake.length || 1) * 0.37;
+      const left = 2 + ((Math.sin(seed) * 0.5 + 0.5) * 96);
+      const xDelay = ((Math.sin(seed * 1.7) * 0.5 + 0.5) * 8).toFixed(1);
+      const yDelay = ((Math.cos(seed * 2.3) * 0.5 + 0.5) * 4).toFixed(1);
+      const fallDuration = (8 + ((Math.sin(seed * 3.1) * 0.5 + 0.5) * 8)).toFixed(2);
+      const swayDuration = (2 + ((Math.cos(seed * 1.9) * 0.5 + 0.5) * 3)).toFixed(2);
+
+      return {
+        left: `${left}%`,
+        animationDelay: `${xDelay}s, ${yDelay}s`,
+        animationDuration: `${fallDuration}s, ${swayDuration}s`,
+      };
+    });
+  }, [arr, snowflake]);
 
   return <div className={`snowflakes ${rise ? 'rise' : ''}`}>
-    {arr.map((_, index) => {
-      const left = 1 + Math.random() * 98;
-      const xDelay = `${(Math.random() * 8).toFixed(1)}s`;
-      const yDelay = `${(Math.random() * 4).toFixed(1)}s`;
-      const fallDuration = 8 + Math.random() * 8;
-      const swayDuration = 2 + Math.random() * 3;
-      const size = 0.8 + Math.random() * 1.2;
-
-      return (
-        <div
-          className="snowflake"
-          key={`snow-${index}`}
-          style={{
-            left: `${left}%`,
-            animationDelay: `${xDelay}, ${yDelay}`,
-            animationDuration: `${fallDuration}s, ${swayDuration}s`,
-            fontSize: `${size}em`,
-          }}
-        >
-          {snowflake}
-        </div>
-      );
-    })}
+    {arr.map((_, index) => (
+      <div
+        className="snowflake"
+        key={`snow-${index}`}
+        style={snowflakeStyles[index]}
+      >
+        {snowflake}
+      </div>
+    ))}
   </div>;
 }
 
@@ -103,6 +105,12 @@ function App() {
     return () => window.clearTimeout(t);
   }, [finaleMode]);
 
+  useEffect(() => {
+    const background = lit ? 'rgb(2, 17, 41)' : 'rgb(223, 206, 190)';
+    document.body.style.backgroundColor = background;
+    document.documentElement.style.backgroundColor = background;
+  }, [lit]);
+
   // Once they're lit, open the birthday note (only when the birthday itself is on screen).
   useEffect(() => {
     if (!lit || !isBirthday) return;
@@ -126,12 +134,14 @@ function App() {
   }
   const { title, note, emoji, rise } = entry;
 
+  const runwayNumber = DAYS.find((d) => d.key === key)?.n;
+
   const isNoteView = view === 'note';
   const toggleNote = () => setView(isNoteView ? 'date' : 'note');
 
   return (
     <div className={`App ${lit ? 'lit' : ''}`}>
-      {<SnowFlakes num={30} snowflake={emoji} rise={rise}></SnowFlakes>}
+      {<SnowFlakes num={16} snowflake={emoji} rise={rise}></SnowFlakes>}
       <div className="stage">
         <div className={`dateView view ${isNoteView ? 'hide' : 'show'}`} onClick={toggleNote} aria-hidden={isNoteView}>
           <div className='month'>{month}</div>
@@ -142,6 +152,9 @@ function App() {
           <div>
             {note}
           </div>
+          {runwayNumber && !locked && (
+            <div className="candleHint">Candle {runwayNumber} of 30</div>
+          )}
           <div className={`closeButton ${isNoteView ? '' : 'disable'}`} onClick={toggleNote}>Close</div>
         </div>
       </div>
