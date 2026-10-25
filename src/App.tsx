@@ -94,6 +94,8 @@ function App() {
   const date = parsed.kind === 'date' ? parsed.date : startOfDay(today);
   const key = dateKey(date);
   const isBirthday = isSameDay(date, FINALE_DATE);
+  const cakeWindowDate = preview && parsed.kind === 'date' ? parsed.date : today;
+  const hasCake = startOfDay(cakeWindowDate) >= RUNWAY_START && startOfDay(cakeWindowDate) <= FINALE_DATE;
 
   // Dec 2 (or ?finale): light the candles automatically. Back to unlit if we leave that day (preview).
   useEffect(() => {
@@ -158,13 +160,15 @@ function App() {
           <div className={`closeButton ${isNoteView ? '' : 'disable'}`} onClick={toggleNote}>Close</div>
         </div>
       </div>
-      <Cake
-        days={DAYS}
-        through={through}
-        finale={finaleMode}
-        lit={lit}
-        currentKey={key}
-      />
+      {hasCake && (
+        <Cake
+          days={DAYS}
+          through={through}
+          finale={finaleMode}
+          lit={lit}
+          currentKey={key}
+        />
+      )}
     </div>
   );
 }

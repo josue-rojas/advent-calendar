@@ -67,7 +67,7 @@ export const presents2026: { [key: string]: Present } = {
     "emoji": "🧀"
   },
   "NOVEMBER142026": {
-    "title": "Mandarin candle",
+    "title": "A Mandarin candle",
     "note": "First candle 😉",
     "emoji": "🕯️"
   },

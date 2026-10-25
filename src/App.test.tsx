@@ -28,6 +28,20 @@ test('before the runway starts there are no candles and a friendly message', () 
   expect(screen.getByText(/first candle goes on the cake on November 2/)).toBeInTheDocument();
 });
 
+test('before the first candle date, the cake is hidden completely', () => {
+  setToday('2026-10-20');
+  visit('/advent-calendar/');
+  render(<App />);
+  expect(screen.queryByRole('group', { name: /birthday cake with candles/i })).not.toBeInTheDocument();
+});
+
+test('after the birthday, the cake is hidden completely', () => {
+  setToday('2026-12-03');
+  visit('/advent-calendar/');
+  render(<App />);
+  expect(screen.queryByRole('group', { name: /birthday cake with candles/i })).not.toBeInTheDocument();
+});
+
 test('the gift and the cake share a page; the cake has a candle for every day up to today', () => {
   setToday('2026-11-09');
   visit('/advent-calendar/#11.09.2026');
