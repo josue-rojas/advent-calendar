@@ -7,7 +7,7 @@ import { Present } from './types';
 
 export const presents2026: { [key: string]: Present } = {
   "NOVEMBER022026": {
-    "title": "Day of the Dead pie",
+    "title": "Apple Pie!",
     "note": "Starting off with a little sweet treat. Hope you enjoy this pie and our journey to get it. Hopefully it all works out cause all I got was an apartment to pick up this pie.",
     "emoji": "🥧"
   },
