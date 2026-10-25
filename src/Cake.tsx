@@ -131,13 +131,32 @@ interface CakeProps {
   lit: boolean;
   /** dateKey of the day being shown above the cake */
   currentKey: string;
+  onBlow?: () => void;
+  onActivateMic?: () => void;
 }
 
-function Cake({ days, through, finale, lit, currentKey }: CakeProps) {
+function Cake({ days, through, finale, lit, currentKey, onBlow, onActivateMic }: CakeProps) {
   const isPresent = (day: RunwayDay) => finale || startOfDay(day.date) <= startOfDay(through);
 
+  const handleBlow = (event?: { preventDefault?: () => void }) => {
+    event?.preventDefault?.();
+    onActivateMic?.();
+    onBlow?.();
+  };
+
   return (
-    <div className={`cake ${lit ? 'lit' : ''}`}>
+    <div
+      className={`cake ${lit ? 'lit' : ''}`}
+      onPointerDown={lit ? handleBlow : undefined}
+      onKeyDown={lit ? (event) => {
+        if (event.code === 'Space' || event.key === ' ') {
+          handleBlow(event);
+        }
+      } : undefined}
+      role={lit ? 'button' : undefined}
+      tabIndex={lit ? 0 : -1}
+      aria-label={lit ? 'Blow out the candles' : undefined}
+    >
       <svg viewBox="0 0 360 336" role="group" aria-label="Birthday cake with candles">
         <defs>
           <clipPath id="cakeBodyClip">

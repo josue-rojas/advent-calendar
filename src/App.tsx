@@ -67,10 +67,95 @@ function fallbackPresent(now: Date): Present {
 
 const DAYS = runwayDays();
 
+export function listenForBlow(onBlow: () => void): () => void {
+  const AudioCtor = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+
+  if (!navigator.mediaDevices?.getUserMedia || !AudioCtor) {
+    return () => {};
+  }
+
+  let stream: MediaStream | undefined;
+  let frameId = 0;
+  let active = false;
+  let startedAt = 0;
+  let cleaned = false;
+
+  const cleanup = () => {
+    cleaned = true;
+    if (frameId) window.cancelAnimationFrame(frameId);
+    stream?.getTracks().forEach((track) => track.stop());
+  };
+
+  const start = async () => {
+    if (cleaned) return;
+
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: false,
+        },
+      });
+
+      const audioContext = new AudioCtor();
+      const analyser = audioContext.createAnalyser();
+      const source = audioContext.createMediaStreamSource(stream);
+      analyser.fftSize = 2048;
+      analyser.smoothingTimeConstant = 0.5;
+      source.connect(analyser);
+
+      const data = new Uint8Array(analyser.fftSize);
+
+      const tick = () => {
+        if (cleaned) return;
+
+        analyser.getByteTimeDomainData(data);
+        let sum = 0;
+
+        for (let i = 0; i < data.length; i++) {
+          const value = data[i];
+          const delta = (value - 128) / 128;
+          sum += delta * delta;
+        }
+
+        const rms = Math.sqrt(sum / data.length);
+        const strongBlow = rms > 0.18;
+
+        if (strongBlow && !active) {
+          active = true;
+          startedAt = performance.now();
+        }
+
+        if (active && strongBlow && performance.now() - startedAt > 150) {
+          onBlow();
+          active = false;
+          return;
+        }
+
+        if (!strongBlow) {
+          active = false;
+        }
+
+        frameId = window.requestAnimationFrame(tick);
+      };
+
+      frameId = window.requestAnimationFrame(tick);
+    } catch {
+      // Browsers can block mic access; the click/space fallback still works.
+    }
+  };
+
+  void start();
+
+  return cleanup;
+}
+
 function App() {
   const [hash, setHash] = useState(window.location.hash);
   const [view, setView] = useState<View>('date');
   const [lit, setLit] = useState(false);
+  const [micRequested, setMicRequested] = useState(false);
 
   // A tag tapped (or a candle clicked) while the page is open only changes the hash.
   useEffect(() => {
@@ -140,6 +225,32 @@ function App() {
 
   const isNoteView = view === 'note';
   const toggleNote = () => setView(isNoteView ? 'date' : 'note');
+  const blowOutCandles = () => {
+    if (!lit) return;
+    setLit(false);
+  };
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.code === 'Space' && lit) {
+        event.preventDefault();
+        blowOutCandles();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [lit]);
+
+  useEffect(() => {
+    if (!lit || !hasCake || !micRequested) return;
+    const cleanup = listenForBlow(blowOutCandles);
+    return cleanup;
+  }, [lit, hasCake, micRequested]);
+
+  const requestMicBlow = () => {
+    if (!lit) return;
+    setMicRequested(true);
+  };
 
   return (
     <div className={`App ${lit ? 'lit' : ''}`}>
@@ -167,6 +278,8 @@ function App() {
           finale={finaleMode}
           lit={lit}
           currentKey={key}
+          onBlow={blowOutCandles}
+          onActivateMic={requestMicBlow}
         />
       )}
     </div>

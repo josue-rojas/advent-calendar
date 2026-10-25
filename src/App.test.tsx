@@ -173,6 +173,18 @@ test('on an ordinary day the candles never light', () => {
   expect(container.querySelector('.App')).not.toHaveClass('lit');
 });
 
+test('pressing space while the candles are lit blows them out', () => {
+  setToday('2026-12-02');
+  visit('/advent-calendar/?finale');
+  const { container } = render(<App />);
+  act(() => { jest.advanceTimersByTime(1000); });
+  expect(container.querySelector('.App')).toHaveClass('lit');
+
+  fireEvent.keyDown(window, { code: 'Space' });
+
+  expect(container.querySelector('.App')).not.toHaveClass('lit');
+});
+
 test('on Dec 2, an older day stays on the date view and does not auto-open its note', () => {
   setToday('2026-12-02');
   visit('/advent-calendar/#11.05.2026');
