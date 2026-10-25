@@ -26,15 +26,17 @@ type View = 'date' | 'note';
 const LIGHT_DELAY_MS = 800;
 const NOTE_AFTER_LIT_MS = 3600;
 
-// max 10
 function SnowFlakes({ num, snowflake = '❅', rise = false }: { num: number; snowflake?: string; rise?: boolean }) {
   const arr = new Array(num).fill(0);
 
   return <div className={`snowflakes ${rise ? 'rise' : ''}`}>
     {arr.map((_, index) => {
-      const left = ((index + 1) / (num + 1)) * 100;
-      const xDelay = `${((index * 1.7) % 9).toFixed(1)}s`;
-      const yDelay = `${((index * 0.7) % 4).toFixed(1)}s`;
+      const left = 1 + Math.random() * 98;
+      const xDelay = `${(Math.random() * 8).toFixed(1)}s`;
+      const yDelay = `${(Math.random() * 4).toFixed(1)}s`;
+      const fallDuration = 8 + Math.random() * 8;
+      const swayDuration = 2 + Math.random() * 3;
+      const size = 0.8 + Math.random() * 1.2;
 
       return (
         <div
@@ -43,6 +45,8 @@ function SnowFlakes({ num, snowflake = '❅', rise = false }: { num: number; sno
           style={{
             left: `${left}%`,
             animationDelay: `${xDelay}, ${yDelay}`,
+            animationDuration: `${fallDuration}s, ${swayDuration}s`,
+            fontSize: `${size}em`,
           }}
         >
           {snowflake}
@@ -127,7 +131,7 @@ function App() {
 
   return (
     <div className={`App ${lit ? 'lit' : ''}`}>
-      {<SnowFlakes num={16} snowflake={emoji} rise={rise}></SnowFlakes>}
+      {<SnowFlakes num={30} snowflake={emoji} rise={rise}></SnowFlakes>}
       <div className="stage">
         <div className={`dateView view ${isNoteView ? 'hide' : 'show'}`} onClick={toggleNote} aria-hidden={isNoteView}>
           <div className='month'>{month}</div>
