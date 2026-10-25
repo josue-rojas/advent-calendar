@@ -6,10 +6,8 @@ import Cake from './Cake';
 import {
   FINALE_DATE,
   RUNWAY_START,
-  RunwayDay,
   dateKey,
   formatLong,
-  hashFor,
   isSameDay,
   parseHash,
   presentKey,
@@ -58,7 +56,7 @@ function fallbackPresent(now: Date): Present {
   if (startOfDay(now) < RUNWAY_START) {
     return { title: 'Almost time', note: `Your calendar starts on ${formatLong(RUNWAY_START)}.` };
   }
-  return { title: 'No present today', note: 'Tap one of your candles to open its day.' };
+  return { title: 'No present today', note: 'Try ?preview#11.02.2026 to preview a day' };
 }
 
 const DAYS = runwayDays();
@@ -124,12 +122,6 @@ function App() {
   }
   const { title, note, emoji, rise } = entry;
 
-  const runwayNumber = DAYS.find((d) => d.key === key)?.n;
-
-  const openDay = (day: RunwayDay) => {
-    window.location.hash = hashFor(day.date);
-  };
-
   const isNoteView = view === 'note';
   const toggleNote = () => setView(isNoteView ? 'date' : 'note');
 
@@ -146,9 +138,6 @@ function App() {
           <div>
             {note}
           </div>
-          {runwayNumber && !locked && (
-            <div className="candleHint">Candle {runwayNumber} of 30</div>
-          )}
           <div className={`closeButton ${isNoteView ? '' : 'disable'}`} onClick={toggleNote}>Close</div>
         </div>
       </div>
@@ -158,7 +147,6 @@ function App() {
         finale={finaleMode}
         lit={lit}
         currentKey={key}
-        onSelect={openDay}
       />
     </div>
   );

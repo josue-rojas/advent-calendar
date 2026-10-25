@@ -33,7 +33,6 @@
 .shine { fill: rgba(255, 255, 255, 0.3); }
 .wick { stroke: #3a2a30; stroke-linecap: round; stroke-width: 1.4; }
 
-.candleHit { cursor: pointer; outline: none; }
 .candleHit rect { fill: transparent; }
 .candleHit:focus-visible rect { stroke: rgb(255, 84, 79); stroke-width: 1.5; }
 

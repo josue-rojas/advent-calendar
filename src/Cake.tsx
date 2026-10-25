@@ -1,4 +1,4 @@
-import { CSSProperties, KeyboardEvent } from 'react';
+import { CSSProperties } from 'react';
 import './Cake.css';
 import { RunwayDay, startOfDay } from './dates';
 
@@ -131,26 +131,10 @@ interface CakeProps {
   lit: boolean;
   /** dateKey of the day being shown above the cake */
   currentKey: string;
-  onSelect: (day: RunwayDay) => void;
 }
 
-function Cake({ days, through, finale, lit, currentKey, onSelect }: CakeProps) {
+function Cake({ days, through, finale, lit, currentKey }: CakeProps) {
   const isPresent = (day: RunwayDay) => finale || startOfDay(day.date) <= startOfDay(through);
-  const count = days.filter(isPresent).length;
-
-
-  let status: string;
-  if (lit) status = 'Make a wish.';
-  else if (finale) status = 'All thirty candles are here.';
-  else if (count === 0) status = 'The first candle goes on the cake on November 2. They stay unlit until December 2.';
-  else status = `${count} of ${days.length} candles are on the cake. They stay unlit until December 2.`;
-
-  const onKey = (e: KeyboardEvent, day: RunwayDay) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      onSelect(day);
-    }
-  };
 
   return (
     <div className={`cake ${lit ? 'lit' : ''}`}>
@@ -212,7 +196,6 @@ function Cake({ days, through, finale, lit, currentKey, onSelect }: CakeProps) {
           return (
             <g key={day.key} transform={`translate(${x} ${y}) scale(${scale})`} style={vars}>
              { present && <ellipse className="hole" cx={0} cy={0} rx={5} ry={2} />}
-              {current && <ellipse className="currentRing" cx={0} cy={0} rx={9} ry={3.4} />}
               {present && (
                 <g className={arriving ? 'arrive' : ''}>
                   <g className="flame">
@@ -226,23 +209,10 @@ function Cake({ days, through, finale, lit, currentKey, onSelect }: CakeProps) {
                   <path className="shine" d="M-1.8 -52 H-0.4 L-1.2 -2 H-3.2 Z" />
                 </g>
               )}
-              {present && (
-                <g
-                  className="candleHit"
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`Day ${day.n}`}
-                  onClick={() => onSelect(day)}
-                  onKeyDown={(e) => onKey(e, day)}
-                >
-                  <rect x={-12} y={-66} width={24} height={72} />
-                </g>
-              )}
             </g>
           );
         })}
       </svg>
-      <p className="cakeStatus">{status}</p>
     </div>
   );
 }

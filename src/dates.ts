@@ -30,11 +30,6 @@ export function presentKey(d: Date): string {
   return `${MONTHS[d.getMonth()]}${pad2(d.getDate())}${d.getFullYear()}`;
 }
 
-/** Hash used by NFC tags, e.g. "#11.02.2026". */
-export function hashFor(d: Date): string {
-  return `#${pad2(d.getMonth() + 1)}.${pad2(d.getDate())}.${d.getFullYear()}`;
-}
-
 export function formatLong(d: Date): string {
   return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 }

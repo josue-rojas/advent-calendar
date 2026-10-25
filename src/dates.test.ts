@@ -1,10 +1,4 @@
-import { dateKey, hashFor, parseHash, presentKey, runwayDays } from './dates';
-
-test('parses MM.DD.YYYY hashes explicitly', () => {
-  const p = parseHash('#11.02.2026');
-  expect(p.kind).toBe('date');
-  if (p.kind === 'date') expect(dateKey(p.date)).toBe('2026-11-02');
-});
+import { dateKey, parseHash, presentKey, runwayDays } from './dates';
 
 test('still parses 2022 hashes and slashes', () => {
   const p = parseHash('#12.01.2022');
@@ -30,5 +24,4 @@ test('runway is 30 days, Nov 2 to Dec 1, and keys match presents', () => {
   expect(days[29].key).toBe('2026-12-01');
   expect(presentKey(days[0].date)).toBe('NOVEMBER022026');
   expect(presentKey(days[29].date)).toBe('DECEMBER012026');
-  expect(hashFor(days[7].date)).toBe('#11.09.2026');
 });
