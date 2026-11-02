@@ -41,7 +41,7 @@ export const presents2026: { [key: string]: Present } = {
     "note": "Sunday! So you have something to look forward, a nail appointment coupon! Valid for your birthday Nails!",
     "emoji": "💅"
   },
-  "NOVEMBER092026": {
+  "NOVEMBER302026": {
     "title": "Crown Affair scent",
     "note": "Ummm. lol. Fancy things for my love! Maybe your question \"does my hair stink\" will now be, \"does my hair smell good?\"",
     "emoji": "🌸"
@@ -146,7 +146,7 @@ export const presents2026: { [key: string]: Present } = {
     "note": "Penguins!!!! idk what to expect but I am sure it'll be fun. I love these adventures we take. Who would have thought we can go and interact with penguins (in NYC)",
     "emoji": "🐧"
   },
-  "NOVEMBER302026": {
+  "NOVEMBER092026": {
     "title": "Uggs",
     "note": "Thanks for helping me fill this list!",
     "emoji": "👢"
