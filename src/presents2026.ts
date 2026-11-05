@@ -21,7 +21,7 @@ export const presents2026: { [key: string]: Present } = {
     "note": "Oh! more memory paraphernalia, maybe someone will expense your development trips too.",
     "emoji": "🎞️"
   },
-  "NOVEMBER052026": {
+  "NOVEMBER172026": {
     "title": "A Chunks clip",
     "note": "Keeping up the theme with memory, I saw this and thought it was different but a cool way to share a memory or person or art, whatever you want. 😊",
     "emoji": "🎀"
@@ -81,9 +81,9 @@ export const presents2026: { [key: string]: Present } = {
     "note": "Flowers for you, flowers for your mom, or even flowers for your sister! I love giving you flowers, so this is a gift more so for carrying flowers you want to give in a more stylish way. Or could just be for when I go buy you flowers!",
     "emoji": "💐"
   },
-  "NOVEMBER172026": {
+  "NOVEMBER052026": {
     "title": "Behind the Gate",
-    "note": "Had to get a book from the author that got you into reading again. Hopefully this one is as enjoyable as the other one.",
+    "note": "Had to get a book from the author that got you into reading again. Hopefully this one is as enjoyable as the other one. PS: now you have a choices on what to read.",
     "emoji": "📖"
   },
   "NOVEMBER182026": {
