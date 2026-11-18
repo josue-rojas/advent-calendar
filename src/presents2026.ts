@@ -87,14 +87,14 @@ export const presents2026: { [key: string]: Present } = {
     "emoji": "📖"
   },
   "NOVEMBER182026": {
-    "title": "Oven mitt and pot holder",
-    "note": "Another whimsical gift for our Kitchen. To support you on your wifey era with your mandil",
-    "emoji": "🍳"
-  },
-  "NOVEMBER192026": {
     "title": "A workout set",
     "note": "To keep you motivated as my gym partner so we can be life long partners!",
     "emoji": "🏃‍♀️"
+  },
+  "NOVEMBER192026": {
+    "title": "Oven mitt and pot holder",
+    "note": "Another whimsical gift for our Kitchen. To support you on your wifey era with your mandil",
+    "emoji": "🍳"
   },
   "NOVEMBER202026": {
     "title": "Bisou blush stick",
